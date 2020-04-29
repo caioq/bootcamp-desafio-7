@@ -44,7 +44,8 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["element"] }]
   },
   "settings": {
     "import/resolver": {
