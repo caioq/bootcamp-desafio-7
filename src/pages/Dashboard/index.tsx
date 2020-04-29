@@ -55,8 +55,6 @@ const Dashboard: React.FC = () => {
       balanceResponse.outcome = formatValue(Number(balanceResponse.outcome));
       balanceResponse.total = formatValue(Number(balanceResponse.total));
 
-      console.log(transactionsResponse);
-
       setTransactions(transactionsResponse);
       setBalance(balanceResponse);
     }
