@@ -44,17 +44,25 @@ const Dashboard: React.FC = () => {
       } = response.data;
 
       transactionsResponse.forEach((element: Transaction) => {
-        element.formattedValue = formatValue(element.value);
+        element.formattedValue =
+          element.type === 'outcome'
+            ? `- ${formatValue(element.value)}`
+            : formatValue(element.value);
         element.formattedDate = formatDate(new Date(element.created_at));
       });
+
+      balanceResponse.income = formatValue(Number(balanceResponse.income));
+      balanceResponse.outcome = formatValue(Number(balanceResponse.outcome));
+      balanceResponse.total = formatValue(Number(balanceResponse.total));
 
       console.log(transactionsResponse);
 
       setTransactions(transactionsResponse);
+      setBalance(balanceResponse);
     }
 
     loadTransactions();
-  }, [balance]);
+  }, []);
 
   return (
     <>
@@ -66,21 +74,21 @@ const Dashboard: React.FC = () => {
               <p>Entradas</p>
               <img src={income} alt="Income" />
             </header>
-            <h1 data-testid="balance-income">R$ 5.000,00</h1>
+            <h1 data-testid="balance-income">{balance.income}</h1>
           </Card>
           <Card>
             <header>
               <p>Saídas</p>
               <img src={outcome} alt="Outcome" />
             </header>
-            <h1 data-testid="balance-outcome">R$ 1.000,00</h1>
+            <h1 data-testid="balance-outcome">{balance.outcome}</h1>
           </Card>
           <Card total>
             <header>
               <p>Total</p>
               <img src={total} alt="Total" />
             </header>
-            <h1 data-testid="balance-total">R$ 4000,00</h1>
+            <h1 data-testid="balance-total">{balance.total}</h1>
           </Card>
         </CardContainer>
 
